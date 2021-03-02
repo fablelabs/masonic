@@ -21,6 +21,7 @@ export function useMasonry<Item> ({
   // Container props
   as: ContainerComponent = 'div',
   id,
+  key,
   className,
   style,
   role = 'grid',
@@ -63,8 +64,6 @@ export function useMasonry<Item> ({
   const rangeEnd = scrollTop + overscanBy
   const needsFreshBatch =
     shortestColumnSize < rangeEnd && measuredCount < itemCount
-
-  console.log('!@#!@#!@#!@#!@#!@')
 
   range(
     // We overscan in both directions because users scroll both ways,
@@ -181,7 +180,7 @@ export function useMasonry<Item> ({
   return (
     <ContainerComponent
       ref={containerRef}
-      key={didEverMount}
+      key={`${key || ''}-${didEverMount}`}
       id={id}
       role={role}
       className={className}
@@ -246,6 +245,10 @@ export interface UseMasonryOptions<Item> {
    * Optionally gives the grid container an `id` prop.
    */
   id?: string
+  /**
+   * Prefix to key used for forcing re-renders
+   */
+  key?: string
   /**
    * Optionally gives the grid container a `className` prop.
    */
