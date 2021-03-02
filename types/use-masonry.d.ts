@@ -11,6 +11,7 @@ export declare function useMasonry<Item>({
   items,
   as: ContainerComponent,
   id,
+  key,
   className,
   style,
   role,
@@ -56,6 +57,10 @@ export interface UseMasonryOptions<Item> {
    * Optionally gives the grid container an `id` prop.
    */
   id?: string
+  /**
+   * Prefix to key used for forcing re-renders
+   */
+  key?: string
   /**
    * Optionally gives the grid container a `className` prop.
    */
