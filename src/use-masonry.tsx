@@ -5,14 +5,14 @@ import memoizeOne from '@essentials/memoize-one'
 import useLatest from '@react-hook/latest'
 import {elementsCache} from './elements-cache'
 import {useForceUpdate} from './use-force-update'
-import type {Positioner} from './use-positioner'
+import {Positioner} from './use-positioner'
 
 /**
  * This hook handles the render phases of the masonry layout and returns the grid as a React element.
  *
  * @param options Options for configuring the masonry layout renderer. See `UseMasonryOptions`.
  */
-export function useMasonry<Item>({
+export function useMasonry<Item> ({
   // Measurement and layout
   positioner,
   resizeObserver,
@@ -37,7 +37,7 @@ export function useMasonry<Item>({
   isScrolling,
   height,
   render: RenderComponent,
-  onRender,
+  onRender
 }: UseMasonryOptions<Item>) {
   let startIndex = 0
   let stopIndex: number | undefined
@@ -50,7 +50,7 @@ export function useMasonry<Item>({
     range,
     estimateHeight,
     size,
-    shortestColumn,
+    shortestColumn
   } = positioner
   const measuredCount = size()
   const shortestColumnSize = shortestColumn()
@@ -63,6 +63,8 @@ export function useMasonry<Item>({
   const rangeEnd = scrollTop + overscanBy
   const needsFreshBatch =
     shortestColumnSize < rangeEnd && measuredCount < itemCount
+
+  console.log('!@#!@#!@#!@#!@#!@')
 
   range(
     // We overscan in both directions because users scroll both ways,
@@ -78,7 +80,7 @@ export function useMasonry<Item>({
         left,
         width: columnWidth,
         writingMode: 'horizontal-tb',
-        position: 'absolute',
+        position: 'absolute'
       }
 
       /* istanbul ignore next */
@@ -195,7 +197,7 @@ export function useMasonry<Item>({
 }
 
 /* istanbul ignore next */
-function throwWithoutData(data: any, index: number) {
+function throwWithoutData (data: any, index: number) {
   if (!data) {
     throw new Error(
       `No data was found at index: ${index}\n\n` +
@@ -377,7 +379,7 @@ const getContainerStyle = memoizeOne(
     height: Math.ceil(estimateHeight),
     maxHeight: Math.ceil(estimateHeight),
     willChange: isScrolling ? 'contents' : void 0,
-    pointerEvents: isScrolling ? 'none' : void 0,
+    pointerEvents: isScrolling ? 'none' : void 0
   })
 )
 
@@ -390,7 +392,7 @@ const assignUserStyle = memoizeOne(
   cmp2
 )
 
-function defaultGetItemKey<Item>(_: Item, i: number) {
+function defaultGetItemKey<Item> (_: Item, i: number) {
   return i
 }
 
@@ -402,7 +404,7 @@ const getCachedSize = memoizeOne(
     zIndex: -1000,
     visibility: 'hidden',
     position: 'absolute',
-    writingMode: 'horizontal-tb',
+    writingMode: 'horizontal-tb'
   }),
   (args, pargs) => args[0] === pargs[0]
 )
